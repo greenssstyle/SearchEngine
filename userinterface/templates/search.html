@@ -1,0 +1,72 @@
+<!--This page and results page Inspired from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates-->
+
+<html>
+  <head>
+  
+    <title>CSI4107 Search Engine Homepage</title>
+  </head>
+  <body>
+  <meta charset="utf-8">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+<br><br>
+  <center>
+    <h1>CSI4107 Search Engine Homepage</h1>
+<form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.search(size=100) }}
+<br><br><br><br><br><br><br><br><br><br><br>
+    <p>
+        Classification Options:
+        {% for model in form.classification %}
+        <tr>
+            <td>{{ model.label }}</td>
+        <td>{{ model }}</td>
+        </tr>
+        {% endfor %}
+    </p>
+    <p>
+        Search Model:
+        {% for model in form.models %}
+        <tr>
+            <td>{{ model.label }}</td>
+        <td>{{ model }}</td>
+        </tr>
+        {% endfor %}
+    </p>
+    <p>
+        Dictionary Model:
+        {% for mode in form.dictionary_modes %}
+        <tr>
+            <td>{{ mode.label }}</td>
+        <td>{{ mode }}</td>
+        </tr>
+        {% endfor %}
+    </p>
+  </p>
+
+  <p>{{ form.submit() }}</p>
+</form>
+  </center>
+  </body>
+    <script>
+
+$(function() {
+    $("#search_autocomplete").autocomplete({
+        source:function(request, response) {
+            console.log(request)
+            $.getJSON("{{url_for('autocomplete')}}",{
+                q: request.term,
+            }, function(data) {
+                response(data.matching_results);
+            });
+        },
+        minLength: 2,
+        select: function(event, ui) {
+            console.log(ui.item.value);
+        }
+    });
+})
+</script>
+</html>

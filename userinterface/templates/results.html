@@ -1,0 +1,25 @@
+<div>
+      CSI4107 Search Engine Project Result Page
+      <a href="{{ url_for('index') }}">Back to homepage</a>
+</div>
+{% if model == 'b' %}
+<h2><center>Boolean Search</center></h2>
+{% else %}
+<h2><center>Vector Space Search</center></h2>
+{% endif %}
+<h2>Query: {{ query }}</h2>
+{% if model == 'b' %} {% for result in results %}
+<a href="{{ url_for('get_result', doc_id=result['doc_id'])}}"
+  ><h3>{{ result.title }}</h3></a
+>
+<p>{{ result["excerpt"] }}<br/>
+{% endfor %} {% else %} {% for result in results %}
+<a href="{{ url_for('get_result', doc_id=result['doc_id'])}}">
+  <h3>{{ result.title }}</h3></a
+>
+<p>
+  {{ result["excerpt"] }}<br />
+  score: {{ result['score'] }}<br/>
+</p>
+
+{% endfor %} {% endif %}
