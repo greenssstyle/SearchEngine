@@ -45,8 +45,7 @@ In python sklearn package, it has most of the categorization functions and also 
 
 <strong>Search Results</strong><br/>
  
-
- 
-
- 
-
+![](1.png)<br/>
+![](2.png)<br/>
+![](3.png)<br/>
+![](4.png)<br/>
